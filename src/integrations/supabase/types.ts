@@ -149,6 +149,7 @@ export type Database = {
           quantity: number
           rating: number
           reviews_count: number
+          seller_id: string | null
           seo_description: string | null
           seo_title: string | null
           sku: string | null
@@ -172,6 +173,7 @@ export type Database = {
           quantity?: number
           rating?: number
           reviews_count?: number
+          seller_id?: string | null
           seo_description?: string | null
           seo_title?: string | null
           sku?: string | null
@@ -195,6 +197,7 @@ export type Database = {
           quantity?: number
           rating?: number
           reviews_count?: number
+          seller_id?: string | null
           seo_description?: string | null
           seo_title?: string | null
           sku?: string | null
@@ -264,6 +267,10 @@ export type Database = {
           _role: Database["public"]["Enums"]["app_role"]
           _user_id: string
         }
+        Returns: boolean
+      }
+      seller_owns_order: {
+        Args: { _order_id: string; _user_id: string }
         Returns: boolean
       }
     }
