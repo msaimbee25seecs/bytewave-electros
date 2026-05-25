@@ -149,6 +149,7 @@ export type Database = {
           quantity: number
           rating: number
           reviews_count: number
+          seller_id: string | null
           seo_description: string | null
           seo_title: string | null
           sku: string | null
@@ -172,6 +173,7 @@ export type Database = {
           quantity?: number
           rating?: number
           reviews_count?: number
+          seller_id?: string | null
           seo_description?: string | null
           seo_title?: string | null
           sku?: string | null
@@ -195,6 +197,7 @@ export type Database = {
           quantity?: number
           rating?: number
           reviews_count?: number
+          seller_id?: string | null
           seo_description?: string | null
           seo_title?: string | null
           sku?: string | null
@@ -266,9 +269,13 @@ export type Database = {
         }
         Returns: boolean
       }
+      seller_owns_order: {
+        Args: { _order_id: string; _user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
-      app_role: "admin" | "user"
+      app_role: "admin" | "user" | "seller"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -396,7 +403,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "user"],
+      app_role: ["admin", "user", "seller"],
     },
   },
 } as const
