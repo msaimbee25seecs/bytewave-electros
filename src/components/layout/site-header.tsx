@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Cpu, ShoppingCart, User, LogOut, Shield } from "lucide-react";
+import { Cpu, ShoppingCart, User, LogOut, Shield, Store } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 import { useCart } from "@/hooks/use-cart";
@@ -13,7 +13,7 @@ const nav = [
 
 export function SiteHeader() {
   const path = useRouterState({ select: (s) => s.location.pathname });
-  const { user, isAdmin, signOut } = useAuth();
+  const { user, isAdmin, isSeller, signOut } = useAuth();
   const { count } = useCart();
 
   return (
@@ -56,6 +56,13 @@ export function SiteHeader() {
               </Badge>
             )}
           </Link>
+          {isSeller && (
+            <Link to="/seller">
+              <Button variant="ghost" size="icon" title="Seller Hub">
+                <Store className="h-5 w-5" />
+              </Button>
+            </Link>
+          )}
           {isAdmin && (
             <Link to="/admin">
               <Button variant="ghost" size="icon" title="Admin">
