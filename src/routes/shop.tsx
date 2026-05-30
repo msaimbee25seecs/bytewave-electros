@@ -23,7 +23,7 @@ export const Route = createFileRoute("/shop")({
   head: () => ({
     meta: [
       { title: "Shop — Bytewave" },
-      { name: "description", content: "Browse microcontrollers, ICs, sensors, and passives." },
+      { name: "description", content: "Browse products across electronics, fashion, home, beauty, sports, books, and more." },
     ],
   }),
   component: ShopPage,
