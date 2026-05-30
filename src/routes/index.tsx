@@ -111,6 +111,10 @@ function Index() {
                 <div className="text-sm font-semibold">Living essentials</div>
                 <div className="mt-1 text-sm font-bold">From $9</div>
               </div>
+              <div className="col-span-2 rounded-xl border border-border/60 bg-card p-4">
+                <div className="text-xs uppercase tracking-wider text-muted-foreground">Trending</div>
+                <div className="mt-1 text-sm font-semibold">Electronics · Beauty · Sports · Books</div>
+              </div>
 
             </div>
           </div>
