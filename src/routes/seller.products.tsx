@@ -193,7 +193,7 @@ function ProductFormFields({ value, onChange }: { value: ProductForm; onChange: 
           <Field label="Variant value (e.g. 10kΩ, 8MB)"><Input value={value.variant_value} onChange={(e) => set("variant_value", e.target.value)} /></Field>
         </div>
         <Field label="Category" className="mt-4">
-          <Input value={value.category} onChange={(e) => set("category", e.target.value.toLowerCase())} placeholder="microcontrollers" />
+          <Input value={value.category} onChange={(e) => set("category", e.target.value.toLowerCase())} placeholder="e.g. electronics, fashion, home" />
         </Field>
       </Section>
 
