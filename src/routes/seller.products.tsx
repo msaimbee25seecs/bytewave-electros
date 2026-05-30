@@ -199,7 +199,7 @@ function ProductFormFields({ value, onChange }: { value: ProductForm; onChange: 
 
       <Section title="Search engine listing">
         <div className="grid gap-4">
-          <Field label="URL handle"><Input value={value.handle} onChange={(e) => set("handle", e.target.value)} placeholder="esp32-s3-devkit" /></Field>
+          <Field label="URL handle"><Input value={value.handle} onChange={(e) => set("handle", e.target.value)} placeholder="my-product-handle" /></Field>
           <Field label="Meta title"><Input value={value.seo_title} onChange={(e) => set("seo_title", e.target.value)} /></Field>
           <Field label="Meta description"><Textarea rows={2} value={value.seo_description} onChange={(e) => set("seo_description", e.target.value)} /></Field>
         </div>
