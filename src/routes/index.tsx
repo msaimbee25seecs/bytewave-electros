@@ -1,6 +1,19 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowRight, Cpu, Zap, Shield, Truck, Sparkles } from "lucide-react";
+import {
+  ArrowRight,
+  Cpu,
+  Zap,
+  Shield,
+  Truck,
+  Sparkles,
+  Shirt,
+  Home as HomeIcon,
+  Dumbbell,
+  BookOpen,
+  Sparkle,
+  Gamepad2,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
@@ -13,13 +26,16 @@ export const Route = createFileRoute("/")({
 });
 
 const categories = [
-  { name: "Microcontrollers", slug: "microcontrollers", icon: Cpu },
-  { name: "Passives", slug: "passives", icon: Zap },
-  { name: "IC Op Amps", slug: "ic-op-amps", icon: Sparkles },
-  { name: "Arduinos", slug: "arduinos", icon: Shield },
-  { name: "Sensors", slug: "sensors", icon: Truck },
-  { name: "Resistors", slug: "resistors", icon: Zap },
+  { name: "Electronics", slug: "electronics", icon: Cpu },
+  { name: "Fashion", slug: "fashion", icon: Shirt },
+  { name: "Home & Living", slug: "home", icon: HomeIcon },
+  { name: "Sports & Fitness", slug: "sports", icon: Dumbbell },
+  { name: "Books & Media", slug: "books", icon: BookOpen },
+  { name: "Beauty", slug: "beauty", icon: Sparkle },
+  { name: "Toys & Games", slug: "toys", icon: Gamepad2 },
+  { name: "Accessories", slug: "accessories", icon: Zap },
 ];
+
 
 function Index() {
   const { data: featured } = useQuery({
