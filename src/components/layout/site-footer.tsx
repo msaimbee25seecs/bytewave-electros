@@ -13,15 +13,16 @@ export function SiteFooter() {
             <span className="font-bold">Bytewave</span>
           </Link>
           <p className="mt-3 text-sm text-muted-foreground">
-            Premium electronics components for makers, engineers, and dreamers.
+            A modern marketplace for electronics, fashion, home, beauty, books, and more.
           </p>
         </div>
         <div>
           <h4 className="mb-3 text-sm font-semibold">Shop</h4>
           <ul className="space-y-2 text-sm text-muted-foreground">
             <li><Link to="/shop">All products</Link></li>
-            <li><Link to="/shop">Microcontrollers</Link></li>
-            <li><Link to="/shop">Passives</Link></li>
+            <li><Link to="/shop" search={{ category: "electronics" }}>Electronics</Link></li>
+            <li><Link to="/shop" search={{ category: "fashion" }}>Fashion</Link></li>
+            <li><Link to="/shop" search={{ category: "home" }}>Home &amp; Living</Link></li>
           </ul>
         </div>
         <div>

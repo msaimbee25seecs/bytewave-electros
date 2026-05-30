@@ -1,6 +1,19 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowRight, Cpu, Zap, Shield, Truck, Sparkles } from "lucide-react";
+import {
+  ArrowRight,
+  Cpu,
+  Zap,
+  Shield,
+  Truck,
+  Sparkles,
+  Shirt,
+  Home as HomeIcon,
+  Dumbbell,
+  BookOpen,
+  Sparkle,
+  Gamepad2,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
@@ -13,13 +26,16 @@ export const Route = createFileRoute("/")({
 });
 
 const categories = [
-  { name: "Microcontrollers", slug: "microcontrollers", icon: Cpu },
-  { name: "Passives", slug: "passives", icon: Zap },
-  { name: "IC Op Amps", slug: "ic-op-amps", icon: Sparkles },
-  { name: "Arduinos", slug: "arduinos", icon: Shield },
-  { name: "Sensors", slug: "sensors", icon: Truck },
-  { name: "Resistors", slug: "resistors", icon: Zap },
+  { name: "Electronics", slug: "electronics", icon: Cpu },
+  { name: "Fashion", slug: "fashion", icon: Shirt },
+  { name: "Home & Living", slug: "home", icon: HomeIcon },
+  { name: "Sports & Fitness", slug: "sports", icon: Dumbbell },
+  { name: "Books & Media", slug: "books", icon: BookOpen },
+  { name: "Beauty", slug: "beauty", icon: Sparkle },
+  { name: "Toys & Games", slug: "toys", icon: Gamepad2 },
+  { name: "Accessories", slug: "accessories", icon: Zap },
 ];
+
 
 function Index() {
   const { data: featured } = useQuery({
@@ -44,20 +60,19 @@ function Index() {
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
           <div className="flex flex-col justify-center">
             <Badge className="mb-4 w-fit border-primary/40 bg-accent text-foreground" variant="outline">
-              <Sparkles className="mr-1 h-3 w-3" /> New: ESP32-S3 in stock
+              <Sparkles className="mr-1 h-3 w-3" /> New arrivals across every category
             </Badge>
             <h1 className="text-5xl font-bold tracking-tight md:text-7xl">
-              Build the <span className="text-gradient">future</span>,
-              <br /> one component at a time.
+              Everything you love, <span className="text-gradient">one store</span>.
             </h1>
             <p className="mt-6 max-w-lg text-lg text-muted-foreground">
-              Curated electronics components for engineers, hackers, and makers.
-              Microcontrollers, ICs, passives — shipped fast.
+              From electronics and fashion to home essentials, beauty, books, and
+              more — curated by independent sellers and shipped fast.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/shop">
                 <Button size="lg" className="bg-gradient-primary text-primary-foreground hover:opacity-90 glow">
-                  Shop Components <ArrowRight className="ml-2 h-4 w-4" />
+                  Shop everything <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
               <Link to="/blog">
@@ -77,25 +92,30 @@ function Index() {
             <div className="glass relative grid w-full max-w-md grid-cols-2 gap-4 rounded-2xl p-6 shadow-card">
               <div className="col-span-2 rounded-xl bg-gradient-primary p-6 text-primary-foreground">
                 <div className="text-xs uppercase tracking-wider opacity-80">Featured</div>
-                <div className="mt-1 text-2xl font-bold">ESP32-S3 DevKit</div>
-                <div className="mt-1 text-sm opacity-90">Wi-Fi · BLE · 8MB PSRAM</div>
+                <div className="mt-1 text-2xl font-bold">Multi-category marketplace</div>
+                <div className="mt-1 text-sm opacity-90">Tech · Style · Home · More</div>
                 <div className="mt-4 flex items-end justify-between">
-                  <span className="text-3xl font-bold">$14.99</span>
-                  <Cpu className="h-12 w-12 opacity-80" />
+                  <span className="text-3xl font-bold">10k+ SKUs</span>
+                  <Sparkles className="h-12 w-12 opacity-80" />
                 </div>
               </div>
               <div className="rounded-xl border border-border/60 bg-card p-4">
-                <Zap className="h-6 w-6 text-primary" />
-                <div className="mt-2 text-xs text-muted-foreground">Op Amp</div>
-                <div className="text-sm font-semibold">LM358N</div>
-                <div className="mt-1 text-sm font-bold">$0.42</div>
+                <Shirt className="h-6 w-6 text-primary" />
+                <div className="mt-2 text-xs text-muted-foreground">Fashion</div>
+                <div className="text-sm font-semibold">New season drops</div>
+                <div className="mt-1 text-sm font-bold">From $12</div>
               </div>
               <div className="rounded-xl border border-border/60 bg-card p-4">
-                <Sparkles className="h-6 w-6 text-primary" />
-                <div className="mt-2 text-xs text-muted-foreground">Sensor</div>
-                <div className="text-sm font-semibold">BME280</div>
-                <div className="mt-1 text-sm font-bold">$3.20</div>
+                <HomeIcon className="h-6 w-6 text-primary" />
+                <div className="mt-2 text-xs text-muted-foreground">Home</div>
+                <div className="text-sm font-semibold">Living essentials</div>
+                <div className="mt-1 text-sm font-bold">From $9</div>
               </div>
+              <div className="col-span-2 rounded-xl border border-border/60 bg-card p-4">
+                <div className="text-xs uppercase tracking-wider text-muted-foreground">Trending</div>
+                <div className="mt-1 text-sm font-semibold">Electronics · Beauty · Sports · Books</div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -106,11 +126,12 @@ function Index() {
         <div className="mb-6 flex items-end justify-between">
           <div>
             <h2 className="text-3xl font-bold">Shop by category</h2>
-            <p className="text-muted-foreground">Find exactly what your build needs.</p>
+            <p className="text-muted-foreground">Discover products across every category.</p>
           </div>
           <Link to="/shop" className="text-sm text-primary hover:underline">View all →</Link>
         </div>
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-4">
+
           {categories.map((c) => (
             <Link
               key={c.slug}

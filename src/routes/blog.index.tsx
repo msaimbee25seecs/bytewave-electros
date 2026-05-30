@@ -10,9 +10,9 @@ export const Route = createFileRoute("/blog/")({
   head: () => ({
     meta: [
       { title: "Blog — Bytewave" },
-      { name: "description", content: "Articles on electronics, embedded engineering, and maker culture." },
+      { name: "description", content: "Stories, guides, and product spotlights across every category we carry." },
       { property: "og:title", content: "Blog — Bytewave" },
-      { property: "og:description", content: "Articles on electronics, embedded engineering, and maker culture." },
+      { property: "og:description", content: "Stories, guides, and product spotlights across every category we carry." },
     ],
   }),
   component: BlogIndex,
@@ -39,7 +39,7 @@ function BlogIndex() {
         <header className="mb-10">
           <h1 className="text-5xl font-bold tracking-tight">The Bytewave <span className="text-gradient">Journal</span></h1>
           <p className="mt-3 max-w-2xl text-lg text-muted-foreground">
-            Deep dives, project guides, and component spotlights.
+            Buying guides, trend reports, and product spotlights across every category.
           </p>
         </header>
 

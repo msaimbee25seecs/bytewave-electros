@@ -193,13 +193,13 @@ function ProductFormFields({ value, onChange }: { value: ProductForm; onChange: 
           <Field label="Variant value (e.g. 10kΩ, 8MB)"><Input value={value.variant_value} onChange={(e) => set("variant_value", e.target.value)} /></Field>
         </div>
         <Field label="Category" className="mt-4">
-          <Input value={value.category} onChange={(e) => set("category", e.target.value.toLowerCase())} placeholder="microcontrollers" />
+          <Input value={value.category} onChange={(e) => set("category", e.target.value.toLowerCase())} placeholder="e.g. electronics, fashion, home" />
         </Field>
       </Section>
 
       <Section title="Search engine listing">
         <div className="grid gap-4">
-          <Field label="URL handle"><Input value={value.handle} onChange={(e) => set("handle", e.target.value)} placeholder="esp32-s3-devkit" /></Field>
+          <Field label="URL handle"><Input value={value.handle} onChange={(e) => set("handle", e.target.value)} placeholder="my-product-handle" /></Field>
           <Field label="Meta title"><Input value={value.seo_title} onChange={(e) => set("seo_title", e.target.value)} /></Field>
           <Field label="Meta description"><Textarea rows={2} value={value.seo_description} onChange={(e) => set("seo_description", e.target.value)} /></Field>
         </div>
