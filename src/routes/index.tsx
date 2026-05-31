@@ -3,23 +3,21 @@ import { useQuery } from "@tanstack/react-query";
 import {
   ArrowRight,
   Cpu,
-  Zap,
-  Shield,
-  Truck,
-  Sparkles,
   Shirt,
   Home as HomeIcon,
   Dumbbell,
   BookOpen,
   Sparkle,
   Gamepad2,
+  Zap,
+  LayoutDashboard,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { ProductCard, type ProductCardData } from "@/components/product-card";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { useAuth } from "@/hooks/use-auth";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -36,8 +34,10 @@ const categories = [
   { name: "Accessories", slug: "accessories", icon: Zap },
 ];
 
-
 function Index() {
+  const { isSeller, isAdmin } = useAuth();
+  const showDashboard = isSeller || isAdmin;
+
   const { data: featured } = useQuery({
     queryKey: ["featured-products"],
     queryFn: async () => {
@@ -55,117 +55,91 @@ function Index() {
     <div className="min-h-screen">
       <SiteHeader />
 
-      {/* Hero */}
-      <section className="container mx-auto px-4 pt-16 pb-12">
-        <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
-          <div className="flex flex-col justify-center">
-            <Badge className="mb-4 w-fit border-primary/40 bg-accent text-foreground" variant="outline">
-              <Sparkles className="mr-1 h-3 w-3" /> New arrivals across every category
-            </Badge>
-            <h1 className="text-5xl font-bold tracking-tight md:text-7xl">
-              Everything you love, <span className="text-gradient">one store</span>.
-            </h1>
-            <p className="mt-6 max-w-lg text-lg text-muted-foreground">
-              From electronics and fashion to home essentials, beauty, books, and
-              more — curated by independent sellers and shipped fast.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/shop">
-                <Button size="lg" className="bg-gradient-primary text-primary-foreground hover:opacity-90 glow">
-                  Shop everything <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-              <Link to="/blog">
-                <Button size="lg" variant="outline">Read the blog</Button>
-              </Link>
-            </div>
-            <div className="mt-10 flex flex-wrap gap-6 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2"><Truck className="h-4 w-4 text-primary" /> Free shipping over $50</div>
-              <div className="flex items-center gap-2"><Shield className="h-4 w-4 text-primary" /> 30-day returns</div>
-              <div className="flex items-center gap-2"><Zap className="h-4 w-4 text-primary" /> Same-day dispatch</div>
-            </div>
+      {/* Hero — editorial */}
+      <section className="container mx-auto max-w-6xl px-6 pt-28 pb-24">
+        <div className="max-w-3xl">
+          <div className="mb-8 flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">
+            <span className="h-px w-8 bg-border" />
+            Issue 01 — A multi-category marketplace
           </div>
-
-          {/* Hero showcase */}
-          <div className="relative flex items-center justify-center">
-            <div className="absolute inset-0 bg-gradient-primary opacity-20 blur-3xl" />
-            <div className="glass relative grid w-full max-w-md grid-cols-2 gap-4 rounded-2xl p-6 shadow-card">
-              <div className="col-span-2 rounded-xl bg-gradient-primary p-6 text-primary-foreground">
-                <div className="text-xs uppercase tracking-wider opacity-80">Featured</div>
-                <div className="mt-1 text-2xl font-bold">Multi-category marketplace</div>
-                <div className="mt-1 text-sm opacity-90">Tech · Style · Home · More</div>
-                <div className="mt-4 flex items-end justify-between">
-                  <span className="text-3xl font-bold">10k+ SKUs</span>
-                  <Sparkles className="h-12 w-12 opacity-80" />
-                </div>
-              </div>
-              <div className="rounded-xl border border-border/60 bg-card p-4">
-                <Shirt className="h-6 w-6 text-primary" />
-                <div className="mt-2 text-xs text-muted-foreground">Fashion</div>
-                <div className="text-sm font-semibold">New season drops</div>
-                <div className="mt-1 text-sm font-bold">From $12</div>
-              </div>
-              <div className="rounded-xl border border-border/60 bg-card p-4">
-                <HomeIcon className="h-6 w-6 text-primary" />
-                <div className="mt-2 text-xs text-muted-foreground">Home</div>
-                <div className="text-sm font-semibold">Living essentials</div>
-                <div className="mt-1 text-sm font-bold">From $9</div>
-              </div>
-              <div className="col-span-2 rounded-xl border border-border/60 bg-card p-4">
-                <div className="text-xs uppercase tracking-wider text-muted-foreground">Trending</div>
-                <div className="mt-1 text-sm font-semibold">Electronics · Beauty · Sports · Books</div>
-              </div>
-
-            </div>
+          <h1 className="editorial text-5xl leading-[1.05] md:text-7xl">
+            Everything you love,
+            <br />
+            <em className="text-primary not-italic">one store.</em>
+          </h1>
+          <p className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground">
+            Bytewave is a curated marketplace for electronics, fashion, home,
+            beauty, books and more — quietly assembled by independent sellers.
+          </p>
+          <div className="mt-10 flex flex-wrap items-center gap-6">
+            <Link to="/shop">
+              <Button size="lg" className="rounded-full bg-primary px-6 text-primary-foreground hover:bg-primary/90">
+                Shop everything <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+            <Link to="/blog" className="text-sm text-foreground underline-offset-4 hover:underline">
+              Read the journal
+            </Link>
+            {showDashboard && (
+              <Link
+                to="/seller"
+                className="inline-flex items-center gap-1.5 text-sm text-primary underline-offset-4 hover:underline"
+              >
+                <LayoutDashboard className="h-4 w-4" /> Open dashboard
+              </Link>
+            )}
           </div>
         </div>
       </section>
 
       {/* Categories */}
-      <section className="container mx-auto px-4 py-12">
-        <div className="mb-6 flex items-end justify-between">
-          <div>
-            <h2 className="text-3xl font-bold">Shop by category</h2>
-            <p className="text-muted-foreground">Discover products across every category.</p>
-          </div>
-          <Link to="/shop" className="text-sm text-primary hover:underline">View all →</Link>
-        </div>
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-4">
-
-          {categories.map((c) => (
-            <Link
-              key={c.slug}
-              to="/shop"
-              search={{ category: c.slug }}
-              className="group flex flex-col items-center gap-3 rounded-xl border border-border/60 bg-card p-6 text-center transition-all hover:border-primary/50 hover:glow"
-            >
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent transition-colors group-hover:bg-gradient-primary">
-                <c.icon className="h-6 w-6 text-primary group-hover:text-primary-foreground" />
-              </div>
-              <span className="text-sm font-medium">{c.name}</span>
+      <section className="border-t border-border/60">
+        <div className="container mx-auto max-w-6xl px-6 py-20">
+          <div className="mb-12 flex items-end justify-between">
+            <div>
+              <div className="mb-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">§ Categories</div>
+              <h2 className="editorial text-3xl md:text-4xl">Shop by category</h2>
+            </div>
+            <Link to="/shop" className="text-sm text-muted-foreground hover:text-foreground">
+              View all →
             </Link>
-          ))}
+          </div>
+          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-md border border-border/60 bg-border/60 md:grid-cols-4">
+            {categories.map((c) => (
+              <Link
+                key={c.slug}
+                to="/shop"
+                search={{ category: c.slug }}
+                className="group flex flex-col gap-6 bg-background p-8 transition-colors hover:bg-card"
+              >
+                <c.icon className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-primary" />
+                <div>
+                  <div className="text-sm font-medium">{c.name}</div>
+                  <div className="mt-1 text-xs text-muted-foreground">Browse →</div>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Featured grid */}
-      <section className="container mx-auto px-4 py-12">
-        <div className="mb-6 flex items-end justify-between">
-          <div>
-            <h2 className="text-3xl font-bold">Top rated</h2>
-            <p className="text-muted-foreground">Loved by makers around the world.</p>
+      {/* Featured */}
+      <section className="border-t border-border/60">
+        <div className="container mx-auto max-w-6xl px-6 py-20">
+          <div className="mb-12">
+            <div className="mb-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">§ Featured</div>
+            <h2 className="editorial text-3xl md:text-4xl">Top rated this season</h2>
           </div>
+          {featured && featured.length > 0 ? (
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {featured.map((p) => <ProductCard key={p.id} p={p} />)}
+            </div>
+          ) : (
+            <div className="rounded-md border border-dashed border-border/60 p-16 text-center">
+              <p className="text-sm text-muted-foreground">No products yet. Sellers — add inventory from your dashboard.</p>
+            </div>
+          )}
         </div>
-        {featured && featured.length > 0 ? (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {featured.map((p) => <ProductCard key={p.id} p={p} />)}
-          </div>
-        ) : (
-          <div className="rounded-xl border border-dashed border-border/60 bg-card/40 p-12 text-center">
-            <Cpu className="mx-auto h-12 w-12 text-muted-foreground/40" />
-            <p className="mt-3 text-muted-foreground">No products yet. Add some from the admin dashboard.</p>
-          </div>
-        )}
       </section>
 
       <SiteFooter />
